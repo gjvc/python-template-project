@@ -1,0 +1,3 @@
+--recurse=yes
+--python-kinds=-iv
+--tag-relative=yes

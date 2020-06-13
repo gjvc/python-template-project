@@ -1,0 +1,25 @@
+#! /usr/bin/env bash
+
+# locus -----------------------------------------------------------------------
+
+readonly _DIRNAME=$( cd "$( dirname "${BASH_SOURCE[ 0 ]}" )" && pwd )
+readonly _BASENAME=$( basename ${BASH_SOURCE[ 0 ]} )
+readonly _ROOT=$( dirname ${_DIRNAME} )
+
+
+# environment -----------------------------------------------------------------
+
+export PYTHONDONTWRITEBYTECODE=1
+export PYTHONPATH=${_ROOT}/src/python/main/${PYTHONPATH:+:${PYTHONPATH}}
+
+
+# execute ---------------------------------------------------------------------
+
+VENV_PYTHON=${_ROOT}/.venv/bin/python
+if [[ ! -f ${VENV_PYTHON} ]]; then 
+    echo "info: python binary [${VENV_PYTHON}] is missing.  Have you run 'bin/venv-init' ?"
+    exit 111
+fi
+
+exec ${VENV_PYTHON} "${@}"
+

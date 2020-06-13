@@ -1,0 +1,19 @@
+
+-----------------------------------------------------------------------------
+>>> PROJECT - project description
+-----------------------------------------------------------------------------
+
+
+quick start -----------------------------------------------------------------
+
+    1 - edit etc/venv/requirements.txt to contain the packages you required
+    2 - run bin/venv-init cto generate the .venv/ directory
+    3 - run bin/venv-python to try it 
+    5 - run bin/corporation.department.project.application.component to try it
+
+
+author ----------------------------------------------------------------------
+
+    George Cox <hello@georgecox.com>
+
+
