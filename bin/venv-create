@@ -17,11 +17,8 @@ readonly _PREFIX=$(dirname "${_ROOT}")
 
 # logging ----------------------------------------------------------------
 
-ts_date_format='%Y-%m-%dT%H:%M:%S%z'
-
 function log { printf "%(%Y-%m-%d)TT%(%H:%M:%S%z)T  ${@}\n" -1 ; }
 function err { printf "%(%Y-%m-%d)TT%(%H:%M:%S%z)T  ${@}\n" -1 1>&2 ; }
-#function ts { echo "${@}" |& ts '%Y-%m-%dT%H:%M:%S%z' }
 
 function banner {
     log ""
@@ -67,33 +64,33 @@ log ""
 # execute ---------------------------------------------------------------------
 
 log "(re)creating .venv/ directory"
-"${realpath_env_python} -m venv --clear ${venv_root}"
+${realpath_env_python} -m venv --clear ${venv_root}
 log ""
 
-#log "updating pip wheel setuptools ..."
-#ts ${venv_pip} install --isolated --no-compile --upgrade pip wheel setuptools
-#log ""
-#
-#log "installing packages from etc/pip/requirement.txt ..."
-#ts ${venv_pip} install --isolated --no-compile --upgrade --requirement ${venv_pip_requirement_txt}
-#log ""
-#
-#log "checking package dependencies ..."
-#ts ${venv_pip} check |& ts "${ts_date_format} "
-#log ""
-#
-#log "writing installed packages in requirements format to etc/pip/requirement.txt.freeze ..."
-#ts ${venv_pip} freeze \
-#    | grep --invert-match 'pkg-resources==0.0.0' \
-#    1> ${venv_pip_requirement_txt_freeze} 2>&1 \
-#log ""
-#
-#log "updating ${venv_pip_requirement_txt}"
-#mv -v ${venv_pip_requirement_txt_freeze} ${venv_pip_requirement_txt} |& ts "${ts_date_format} "
-#bin_venv_python_version=$( ${bin_venv_python} -c "import platform; print(platform.python_version())" )
-#bin_venv_python_implementation=$( ${bin_venv_python} -c "import platform; print(platform.python_implementation())" )
-#banner "bin/venv-python is ${bin_venv_python_version} (${bin_venv_python_implementation})"
-#log ""
-#
-#exit 0
-#
+log "updating pip wheel setuptools ..."
+${venv_pip} install --isolated --no-compile --upgrade pip wheel setuptools
+log ""
+
+log "installing packages from etc/pip/requirement.txt ..."
+${venv_pip} install --isolated --no-compile --upgrade --requirement ${venv_pip_requirement_txt}
+log ""
+
+log "checking package dependencies ..."
+${venv_pip} check
+log ""
+
+log "writing installed packages in requirements format to etc/pip/requirement.txt.freeze ..."
+${venv_pip} freeze \
+    | grep --invert-match 'pkg-resources==0.0.0' \
+    1> ${venv_pip_requirement_txt_freeze} 2>&1
+log ""
+
+log "updating ${venv_pip_requirement_txt}"
+mv -v ${venv_pip_requirement_txt_freeze} ${venv_pip_requirement_txt}
+bin_venv_python_version=$( ${bin_venv_python} -c "import platform; print(platform.python_version())" )
+bin_venv_python_implementation=$( ${bin_venv_python} -c "import platform; print(platform.python_implementation())" )
+banner "bin/venv-python is ${bin_venv_python_version} (${bin_venv_python_implementation})"
+log ""
+
+exit 0
+
