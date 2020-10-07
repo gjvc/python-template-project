@@ -1,15 +1,11 @@
 #! /usr/bin/env python
 
 import sys
-import argparse
 
 from .app import ExampleComponentApplication
 
 
 def main():
-    parser = argparse.ArgumentParser( 'ExampleComponent' )
-    parser.add_argument( '--version', type=bool, default=False )
-    options = parser.parse_args()
     return ExampleComponentApplication().main()
 
 

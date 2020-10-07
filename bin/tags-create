@@ -1,19 +1,31 @@
 #! /usr/bin/env bash
 
-#
-# bin/tags-create -------------------------------------------------------------
-#
-#
+# bash ------------------------------------------------------------------------
+
+${BASH_DEBUG:+trap '(read -p "[${BASH_SOURCE}:${LINENO}] [${BASH_COMMAND}] ")' DEBUG}
+
+
+# location --------------------------------------------------------------------
 
 set -eu
+readonly _REALPATH=$(realpath "${BASH_SOURCE[ 0 ]}")
+readonly _BASENAME=$(basename "${_REALPATH}")
+readonly _DIRNAME=$(dirname "${_REALPATH}")
+readonly _ROOT=$(dirname "${_DIRNAME}")
+readonly _PREFIX=$(dirname "${_ROOT}")
 
 
-# prepare ---------------------------------------------------------------------
+# logging ----------------------------------------------------------------
 
-readonly _SCRIPT="$(cd "$(dirname "${BASH_SOURCE[ 0 ]}")" && pwd)/$(basename "${BASH_SOURCE[ 0 ]}")"
-readonly _DIRNAME=$( cd "$( dirname "${BASH_SOURCE[ 0 ]}" )" && pwd )
-readonly _BASENAME=$( basename ${BASH_SOURCE[ 0 ]} )
-readonly _ROOT=$( dirname ${_DIRNAME} )
+function log { printf "%(%Y-%m-%d)T%(%H:%M:%S%z)T  ${@}\n" -1 ; }
+function err { printf "%(%Y-%m-%d)T%(%H:%M:%S%z)T  ${@}\n" -1 1>&2 ; }
+
+function banner {
+    log ""
+    log "-----------------------------------------------------------------------------"
+    log ">>> ${@}"
+    log "-----------------------------------------------------------------------------"
+}
 
 
 # locations -------------------------------------------------------------------
@@ -23,13 +35,6 @@ CTAGS_OPTIONS_FILE=${_ROOT}/etc/ctags/ctags.options
 ETAGS_OUTPUT_FILE=${_ROOT}/TAGS
 
 PYTHON_SOURCE_ROOT=${_ROOT}/src/python
-
-
-# functions --------------------------------------------------------------
-
-function log_iso_8601 { echo "$( date --iso-8601=seconds --utc )  ${@}"; }
-function log { log_iso_8601 "${@}"; }
-function err { log_iso_8601 "${@}" 1>&2; }
 
 
 # cleanup ---------------------------------------------------------------------

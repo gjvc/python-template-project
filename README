@@ -7,13 +7,29 @@
 quick start -----------------------------------------------------------------
 
     1 - edit etc/venv/requirements.txt to contain the packages you required
-    2 - run bin/venv-init cto generate the .venv/ directory
+    2 - run bin/venv-create to generate the .venv/ directory
     3 - run bin/venv-python to try it 
-    5 - run bin/corporation.department.project.application.component to try it
+    4 - run bin/corporation.department.project.application.component to try it
+
+
+discussion ------------------------------------------------------------------
+
+There are many packages available for the management of python
+environments -- too many to list here without doing a disservice any I
+would have missed were I attempt to list them all.
+
+The end result is the installation of a single virtual environment, and
+packages installed therein.
+
+bin/venv-create -- bash script to install venv
+bin/pip-init -- bash script to install packages into .venv/
+
+
+
 
 
 author ----------------------------------------------------------------------
 
-    George Cox <hello@georgecox.com>
+George Cox <python@georgecox.com>
 
 

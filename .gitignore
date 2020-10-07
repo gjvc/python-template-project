@@ -1,7 +1,8 @@
-
-
-.venv
-tags
-TAGS
 *.pyc
-
+.idea/
+.venv/
+.vscode/
+log/
+var/log/
+TAGS
+tags
